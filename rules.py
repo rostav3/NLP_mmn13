@@ -36,10 +36,16 @@ class Grammar():
             self.update_tuple((node.tag, None))
             self.update_rule(node.tag, None)
 
+        node = self.handleSingleChild(node)
         for children in node.children:
             if node.tag != children.tag:
                 self.insert_rule(node.tag, children.tag)
             self.build_grammar_from_tree(children)
+
+    def handleSingleChild(self, node):
+        while len(node.children) == 1 and len(node.children[0].children) > 0:
+            node.children = node.children[0].children
+        return node
 
     def binarization(self):
         dictionary = copy.deepcopy(self.rules_dictionary)

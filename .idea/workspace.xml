@@ -16,6 +16,7 @@
   </component>
   <component name="ProjectId" id="1Obm4Y4TQbT2v0x7ZATypIzU81I" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunDashboard">

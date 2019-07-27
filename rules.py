@@ -4,6 +4,8 @@ import copy
 class Grammar:
     def __init__(self):
         self.rules_dictionary_counter = dict()
+        self.tags_counter = dict()
+        self.rules_dictionary_probability = dict()
         self.reverse_rules_dictionary = dict()
         self.rules = dict()
         self.tags = set()
@@ -12,6 +14,8 @@ class Grammar:
 
     def update_tags(self, tag):
         self.tags.add(tag)
+        if tag not in self.tags_counter:
+            self.tags_counter[tag] = 0
 
     def update_tuple(self, tuple, count=1):
         if tuple not in self.rules_dictionary_counter:
@@ -127,7 +131,20 @@ class Grammar:
         self.tags.add(key)
         return key
 
+    def calculate_probability(self):
+        for couter_tuple in self.rules_dictionary_counter:
+            tag = couter_tuple[1]
+            if tag not in self.tags_counter:
+                self.tags_counter[tag] = 0
+            self.tags_counter[tag] += self.rules_dictionary_counter[couter_tuple]
+
+        for parent in self.rules:
+            for child in self.rules[parent]:
+                if child not in self.rules_dictionary_probability:
+                    self.rules_dictionary_probability[child] = list()
+                prob = self.rules_dictionary_counter[(parent, child)] / self.tags_counter[child]
+                self.rules_dictionary_probability[child].append((parent, prob))
+
     def printGrammer(self):
-        for rule in self.rules:
-            if len(self.rules[rule])% 2  == 1 and list(self.rules[rule])[0] not in self.terminal:
-                print(" %s => %s" % (rule, self.rules[rule],))
+        for child in self.rules_dictionary_probability:
+           print(" %s => %s" % (child, self.rules_dictionary_probability[child]))

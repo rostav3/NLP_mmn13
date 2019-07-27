@@ -22,6 +22,7 @@ class Submission(Spec):
                 sentence_tree.build_tree(sentence)
                 g.build_grammar_from_tree(sentence_tree.head)
             g.CNF()
+            g.calculate_probability()
             g.printGrammer()
 
     def parse(self, sentence):

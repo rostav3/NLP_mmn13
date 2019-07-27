@@ -21,10 +21,8 @@ class Submission(Spec):
                 sentence_tree = tree.Tree()
                 sentence_tree.build_tree(sentence)
                 g.build_grammar_from_tree(sentence_tree.head)
-            g.clean_grammer()
-            # g.binarization()
+            g.CNF()
             g.printGrammer()
-            # g.calculate_probabilities()
 
     def parse(self, sentence):
         ''' mock parsing function, returns a constant parse unrelated to the input sentence '''

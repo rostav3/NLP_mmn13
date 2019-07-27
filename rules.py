@@ -40,10 +40,13 @@ class Grammar:
                 self.insert_rule(node.tag, child.tag)
             self.build_grammar_from_tree(child)
 
-    def clean_grammer(self):
+    def CNF(self):
+        self.percolation()
+        self.binarization()
+
+    def percolation(self):
         self.move_terminals_to_end()
         self.remove_alone_child()
-        self.binarization()
 
     def move_terminals_to_end(self):
         for parent in list(self.rules.keys()):
